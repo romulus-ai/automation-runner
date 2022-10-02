@@ -15,5 +15,5 @@ jobs:
       - name: Build and Push
         run: |
           tag=$(date +%s)
-          docker buildx use default
+          docker buildx use mybuilder
           docker buildx build --platform linux/amd64,linux/arm/v7 -t romulusai/automation-runner:latest --push .
