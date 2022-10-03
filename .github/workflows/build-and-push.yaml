@@ -16,4 +16,5 @@ jobs:
         run: |
           tag=$(date +%s)
           docker buildx use mybuilder
-          docker buildx build --platform linux/amd64,linux/arm/v7 -t romulusai/automation-runner:latest --push .
+          # python cryptography does not support ARM v7, so we can only build arm64
+          docker buildx build --platform linux/amd64,linux/arm64 -t romulusai/automation-runner:latest --push .

@@ -1,5 +1,7 @@
 FROM alpine:3
 
+ENV TZ="Etc/UTC"
+
 RUN apk --no-cache add \
         sudo \
         python3\
@@ -20,8 +22,8 @@ RUN apk --no-cache add \
         libressl-dev \
         build-base
 
-RUN pip3 install --upgrade pip wheel && \
-    pip3 install --upgrade cryptography cffi && \
+RUN pip3 install --no-cache-dir --upgrade pip wheel && \
+    pip3 install --no-cache-dir --upgrade cryptography cffi && \
     pip3 install ansible-core>=2.13 && \
     pip3 install ansible>=6.4 ansible-lint>=6.7 && \
     pip3 install mitogen jmespath && \
@@ -29,7 +31,7 @@ RUN pip3 install --upgrade pip wheel && \
     apk del build-base && \
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache/pip && \
-    rm -rf /root/.cargo
+    rm -rf /root/.cargo/*
 
 RUN mkdir /ansible && \
     mkdir -p /etc/ansible && \
